@@ -6,18 +6,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginPage {
+	public static final Logger myLogger = Logger.getLogger("com.mycompany.myapp");
 
 	public static void loginPage() {
 
 		exit: while (true) {
-			System.out.println("------Clinic Management System-------");
+			myLogger.setLevel(Level.FINE);
+			myLogger.log(Level.INFO,"------Clinic Management System-------");
+			myLogger.log(Level.INFO,"------LOGIN PAGE-----");
+			myLogger.log(Level.INFO,"1.Admin");
+			myLogger.log(Level.INFO,"2.Doctor");
+			myLogger.log(Level.INFO,"3.Exit");
+			
+			/*System.out.println("------Clinic Management System-------");
 			System.out.println("------LOGIN PAGE-----");
 			System.out.println("1.Admin");
 			System.out.println("2.Doctor");
 			System.out.println("3.Exit");
-
+			*/
 			Scanner sc = new Scanner(System.in);
 			System.out.println("Enter your choice=");
 			int input = sc.nextInt();
@@ -29,7 +39,8 @@ public class LoginPage {
 				AdminPanel.adminPanel();
 				}
 				else {
-					System.out.println("Wrong id/password");
+					myLogger.log(Level.INFO,"Wrong id/password");
+					//System.out.println("Wrong id/password");
 				}
 				break;
 
@@ -37,12 +48,14 @@ public class LoginPage {
 				if(doctorLogin()) {
 					DoctorLogin.doctorPanel();
 				}else {
-					System.out.println("Wrong id/password");
+					myLogger.log(Level.INFO,"Wrong id/password");
+					//System.out.println("Wrong id/password");
 				}
 				break;
 
 			case 3:
-				System.out.println("----EXIT----");
+				myLogger.log(Level.INFO,"-----Exit-----");
+				//System.out.println("----EXIT----");
 				break exit;
 
 			}
@@ -64,7 +77,8 @@ public class LoginPage {
 	            Statement st = con.createStatement();
 	            ResultSet rs = st.executeQuery("SELECT * FROM adminn where a_username = '"+username+"' && a_password = '"+password+"'");
 	            if(rs.next()){
-	                System.out.println("Login Successful");
+	            	myLogger.log(Level.INFO,"Login Successful");
+	               // System.out.println("Login Successful");
 	                return true;
 	            }
 	            else{
@@ -96,11 +110,13 @@ public class LoginPage {
 	            Statement st = con.createStatement();
 	            ResultSet rs = st.executeQuery("SELECT * FROM doctorlogin where d_username='"+username+"'&& d_password='"+password+"' ");
 	            if(rs.next()){
-	                System.out.println("Login successful");
+	            	myLogger.log(Level.INFO,"Login Successful");
+	                //System.out.println("Login successful");
 	                return true;
 	            }
 	            else{
-	                System.out.println("Wrong username/password");
+	            	myLogger.log(Level.INFO,"Wrong username/password");
+	               // System.out.println("Wrong username/password");
 	                return false;
 	            }
 	        } catch (ClassNotFoundException e) {
